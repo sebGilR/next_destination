@@ -51,7 +51,7 @@ module Api::V1
     private
 
     def destination_params
-      params.require(:destination).permit(:name, :description)
+      params.permit(:name, :description)
     end
 
     def set_destination
