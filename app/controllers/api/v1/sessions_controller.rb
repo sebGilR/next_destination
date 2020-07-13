@@ -1,12 +1,13 @@
-Module Api::V1
+module Api::V1
   class SessionsController < ApplicationController
     def create
-      user = User.find(login_params)
+      user = User.find_by(username: params[:username])
 
       if user.nil?
         render json: {status: :unprocessable_entity, message: "Invalid username"}
       else
         session[:username] = user.username
+        render json: {status: :ok, message: "Successfully logged in"}
       end
     end
 

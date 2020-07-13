@@ -1,6 +1,7 @@
 module Api::V1
   class FavoritesController < ApplicationController
     before_action :set_favorite, only: :destroy
+    before_action :require_login
 
     def index
       favorites = Favorite.find_by(user_id: params[:user_id])

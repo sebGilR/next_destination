@@ -1,5 +1,5 @@
 module Api::V1
-  class FavoritesController < ApplicationController
+  class UsersController < ApplicationController
     before_action :require_login, only: [:destroy]
     def create
       user = User.new(user_params)
