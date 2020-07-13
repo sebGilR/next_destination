@@ -1,8 +1,10 @@
 module Api::V1
   class FavoritesController < ApplicationController
+    before_action :require_login, only: [:destroy]
     def create
       user = User.new(user_params)
       if user.save
+        session[:username] = user.username
         render json: { status: :ok, message: "User created successfully" }
       else
         render json: {
@@ -13,8 +15,7 @@ module Api::V1
     end
 
     def destroy
-      user = User.find_by(username: params[:username])
-      user.destroy
+      current_user.destroy
       head :ok
     end
 

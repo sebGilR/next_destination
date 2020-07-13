@@ -1,6 +1,7 @@
 module Api::V1
   class DestinationsController < ApplicationController
     before_action :set_destination, only: [:show, :update, :destroy]
+    before_action :require_login, only: [:create, :update, :destroy]
 
     def index
       destinations = Destination.order_by_most_favorites

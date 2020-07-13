@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     namespace 'v1' do
       resources :destinations
       resources :favorites, only: [:index, :create, :destroy]
+      post 'auth/login', to: 'sessions#create'
+      delete 'auth/logout', to: 'sessions#destroy'
     end
   end
 end
