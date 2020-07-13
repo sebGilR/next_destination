@@ -4,7 +4,7 @@ module Api::V1
     before_action :require_login
 
     def index
-      favorites = Favorite.find_by(user_id: params[:user_id])
+      favorites = current_user.favorites
       render json: {
         status: 'SUCCESS',
         message: 'Favorites loaded',
@@ -12,7 +12,7 @@ module Api::V1
     end
 
     def create
-      favorite = Favorite.new(favorite_params)
+      favorite = current_user.favorites.build(favorite_params)
       if favorite.save
         render json: {
           status: 'SUCCESS',
@@ -34,7 +34,7 @@ module Api::V1
     private
 
     def favorite_params
-      params.permit(:user_id, :destination_id)
+      params.permit(:destination_id)
     end
 
     def set_favorite
