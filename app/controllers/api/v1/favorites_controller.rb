@@ -4,12 +4,12 @@ module Api::V1
     before_action :require_login
 
     def index
-      favorites = current_user.favorites
+      favorites = @current_user.favorites
       render json: { favorites: favorites }
     end
 
     def create
-      favorite = current_user.favorites.build(favorite_params)
+      favorite = @current_user.favorites.build(favorite_params)
       if favorite.save
         render json: { favorite: favorite }
       else

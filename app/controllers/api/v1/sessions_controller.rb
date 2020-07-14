@@ -17,7 +17,7 @@ module Api::V1
     end
 
     def connected
-      if current_user
+      if @current_user
         render json: {
           connected: true,
           username: user.username,
