@@ -1,5 +1,7 @@
 module Api::V1
   class SessionsController < ApplicationController
+    include UserConcern
+
     def create
       user = User.find_by(username: params[:username])
 
