@@ -5,31 +5,19 @@ module Api::V1
 
     def index
       destinations = Destination.order_by_most_favorites
-      render json: {
-        status: 'SUCCESS',
-        message: 'Destinations loaded',
-        data: destinations }
+      render json: { destinations: destinations }
     end
 
     def show
-      render json: {
-        status: 'SUCCESS',
-        message: "Destination loaded",
-        data: @destination }
+      render json: { destination: @destination }
     end
   
     def create
       destination = Destination.new(destination_params)
       if destination.save
-        render json: {
-          status: 'SUCCESS',
-          message: 'Destinations created',
-          data: destination }
+        render json: { destination: destination }
       else
-        render json: {
-          status: :unprocessable_entity,
-          message: "Destination failed to save",
-          data: destination.errors }
+        render json: { destination: destination.errors }
       end
     end
   
@@ -37,10 +25,7 @@ module Api::V1
       if @destination.update(destination_params)
         head :ok
       else
-        render json: {
-          status: :unprocessable_entity,
-          message: "Destination failed to update",
-          data: @destination.errors }
+        render json: { destination: @destination.errors }
       end
     end
   

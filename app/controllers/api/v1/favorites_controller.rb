@@ -5,24 +5,15 @@ module Api::V1
 
     def index
       favorites = current_user.favorites
-      render json: {
-        status: 'SUCCESS',
-        message: 'Favorites loaded',
-        data: favorites }
+      render json: { favorites: favorites }
     end
 
     def create
       favorite = current_user.favorites.build(favorite_params)
       if favorite.save
-        render json: {
-          status: 'SUCCESS',
-          message: 'Favorite created',
-          data: favorite }
+        render json: { favorite: favorite }
       else
-        render json: {
-          status: :unprocessable_entity,
-          message: "Favorite failed to save",
-          data: favorite.errors }
+        render json: { favorite: favorite.errors }
       end
     end
   

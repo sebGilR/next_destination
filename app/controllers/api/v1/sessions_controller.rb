@@ -4,10 +4,14 @@ module Api::V1
       user = User.find_by(username: params[:username])
 
       if user.nil?
-        render json: {status: :unprocessable_entity, message: "Invalid username"}
+        render json: { message: "Invalid username / password"}
       else
         session[:username] = user.username
-        render json: {status: :ok, message: "Successfully logged in"}
+        render json: {
+          username: user.username,
+          admin: user.admin,
+          favorites: user.favorites,
+        }
       end
     end
 

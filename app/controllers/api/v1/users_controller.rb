@@ -5,12 +5,13 @@ module Api::V1
       user = User.new(user_params)
       if user.save
         session[:username] = user.username
-        render json: { status: :ok, message: "User created successfully" }
-      else
         render json: {
-          status: :unprocessable_entity,
-          message: "User failed to save",
-          data: user.errors }
+          username: user.username,
+          admin: user.admin,
+          favorites: user.favorites,
+        }
+      else
+        render json: { user: user.errors }
       end
     end
 
