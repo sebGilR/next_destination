@@ -21,6 +21,9 @@ Bundler.require(*Rails.groups)
 
 module NextDestination
   class Application < Rails::Application
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore, key: '_nextdest_app', expire_after: 24.hours
+    config.middleware.insert_after(ActionDispatch::Cookies, ActionDispatch::Session::CookieStore, key: '_nextdest_app')
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 

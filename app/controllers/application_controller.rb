@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::API
+  helper_method :current_user
+
   def current_user
     if session[:username]
       @current_user ||= User.find_by(username: session[:username])
