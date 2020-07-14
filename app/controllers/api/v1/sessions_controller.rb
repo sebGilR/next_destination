@@ -4,14 +4,28 @@ module Api::V1
       user = User.find_by(username: params[:username])
 
       if user.nil?
-        render json: { message: "Invalid username / password"}
+        render json: { message: "Invalid credentials"}
       else
         session[:username] = user.username
         render json: {
+          connected: true,
           username: user.username,
           admin: user.admin,
           favorites: user.favorites,
         }
+      end
+    end
+
+    def connected
+      if current_user
+        render json: {
+          connected: true,
+          username: user.username,
+          admin: user.admin,
+          favorites: user.favorites,
+        }
+      else
+        render json: {connected: false }
       end
     end
 

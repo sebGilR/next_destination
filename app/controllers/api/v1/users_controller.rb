@@ -6,6 +6,7 @@ module Api::V1
       if user.save
         session[:username] = user.username
         render json: {
+          connected: true,
           username: user.username,
           admin: user.admin,
           favorites: user.favorites,
