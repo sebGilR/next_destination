@@ -22,9 +22,9 @@ module Api::V1
       if @current_user
         render json: {
           connected: true,
-          username: user.username,
-          admin: user.admin,
-          favorites: user.favorites,
+          username: @current_user.username,
+          admin: @current_user.admin,
+          favorites: @current_user.favorites,
         }
       else
         render json: {connected: false }
