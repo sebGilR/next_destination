@@ -1,5 +1,6 @@
 module Api::V1
   class DestinationsController < ApplicationController
+    include UserConcern
     before_action :set_destination, only: [:show, :update, :destroy]
     before_action :require_login, only: [:create, :update, :destroy]
 
