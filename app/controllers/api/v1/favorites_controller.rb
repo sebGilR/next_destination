@@ -1,5 +1,6 @@
 module Api::V1
   class FavoritesController < ApplicationController
+    include UserConcern
     before_action :set_favorite, only: :destroy
     before_action :require_login
 
@@ -11,9 +12,16 @@ module Api::V1
     def create
       favorite = @current_user.favorites.build(favorite_params)
       if favorite.save
-        render json: { favorite: favorite }
+        render json: {
+          connected: true,
+          username: @current_user.username,
+          admin: @current_user.admin,
+          favorites: @current_user.favorites.include?(favorite) ?
+            @current_user.favorites :
+            @current_user.favorites + [favorite],
+        }
       else
-        render json: { favorite: favorite.errors }
+        head :bad_request
       end
     end
   
