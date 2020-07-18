@@ -38,7 +38,7 @@ module Api::V1
     private
 
     def destination_params
-      params.permit(:name, :description)
+      params.permit(:name, :description, :img_url)
     end
 
     def set_destination

@@ -1,6 +1,8 @@
 class Destination < ApplicationRecord
   validates :name, presence: true, length: { maximum: 50 }
   validates :description, presence: true
+  validates :img_url, format: { with: /.+\.(gif|jpe?g|png)\z/,
+    message: 'only allows gif, jpeg, jpg or png formats.' }
 
   has_many :favorites, dependent: :destroy
 

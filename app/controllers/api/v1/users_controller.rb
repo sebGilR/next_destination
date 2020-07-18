@@ -1,5 +1,7 @@
 module Api::V1
   class UsersController < ApplicationController
+    include UserConcern
+  
     before_action :require_login, only: [:destroy]
     def create
       user = User.new(user_params)
