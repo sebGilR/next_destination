@@ -6,8 +6,8 @@ module Api::V1
       user = User.find_by(username: params[:username])
 
       if user.nil?
-        render json: { message: "Invalid credentials"}
-      else
+        head :unauthorized
+      elsif user && user.authenticate(params[:password])
         session[:username] = user.username
         render json: {
           connected: true,
