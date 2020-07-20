@@ -5,9 +5,7 @@ module Api::V1
     def create
       user = User.find_by(username: params[:username])
 
-      if user.nil?
-        head :unauthorized
-      elsif user && user.authenticate(params[:password])
+      if user && user.authenticate(params[:password])
         session[:username] = user.username
         render json: {
           connected: true,
@@ -15,6 +13,8 @@ module Api::V1
           admin: user.admin,
           favorites: user.favorites,
         }
+      else
+        head :unauthorized
       end
     end
 
@@ -37,7 +37,7 @@ module Api::V1
     end
 
     def login_params
-      params.permit(:username)
+      params.permit(:username, :password)
     end
   end
 end
