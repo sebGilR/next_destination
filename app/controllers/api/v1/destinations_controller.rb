@@ -15,7 +15,9 @@ module Api::V1
   
     def create
       destination = Destination.new(destination_params)
-      if destination.save
+      if !@current_user.admin
+        head :unauthorized
+      elsif destination.save
         render json: { destination: destination }
       else
         render json: { destination: destination.errors }
@@ -23,7 +25,9 @@ module Api::V1
     end
   
     def update
-      if @destination.update(destination_params)
+      if !@current_user.admin
+        head :unauthorized
+      elsif @destination.update(destination_params)
         head :ok
       else
         render json: { destination: @destination.errors }
@@ -31,8 +35,12 @@ module Api::V1
     end
   
     def destroy
-      @destination.destroy
-      head :ok
+      if !@current_user.admin
+        head :unauthorized
+      else
+        @destination.destroy
+        head :ok
+      end
     end
 
     private
