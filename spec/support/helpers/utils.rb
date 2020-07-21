@@ -19,11 +19,11 @@ module Utils
   end
 
   def log_in
-    post '/api/v1/auth/login', params: {username: 'userfortest', password: '123456'}
+    post '/api/v1/auth/login', params: { username: 'userfortest', password: '123456' }
   end
 
   def log_in_admin
-    post '/api/v1/auth/login', params: {username: 'adminfortest', password: '123456'}
+    post '/api/v1/auth/login', params: { username: 'adminfortest', password: '123456' }
   end
 
   def log_out
@@ -31,9 +31,9 @@ module Utils
   end
 
   def sign_up_user
-    post '/api/v1/users', params: {username: 'userfortest',
-                                         password: '123456',
-                                         password_confirmation: '123456'}
+    post '/api/v1/users', params: { username: 'userfortest',
+                                    password: '123456',
+                                    password_confirmation: '123456' }
   end
 
   def connected?
@@ -41,22 +41,23 @@ module Utils
   end
 
   def post_destination
-    post '/api/v1/destinations', params: {name: 'San Francisco',
-                                        description: 'A long description',
-                                        img_url: 'https://s.hdnux.com/photos/01/12/72/67/19639794/3/920x1240.jpg'}
+    post '/api/v1/destinations', params: { name: 'San Francisco',
+                                           description: 'A long description',
+                                           img_url: 'https://s.hdnux.com/photos/01/12/72/67/19639794/3/920x1240.jpg' }
   end
 
   def put_destination(id)
-    put "/api/v1/destinations/#{id}", params: {name: 'San Francisco',
-                                        description: 'A new description',
-                                        img_url: 'https://s.hdnux.com/photos/01/12/72/67/19639794/3/920x1240.jpg'}
+    put "/api/v1/destinations/#{id}",
+        params: { name: 'San Francisco',
+                  description: 'A new description',
+                  img_url: 'https://s.hdnux.com/photos/01/12/72/67/19639794/3/920x1240.jpg' }
   end
 
   def delete_destination(id)
     delete "/api/v1/destinations/#{id}"
   end
 
-  def get_destinations
+  def destinations
     get '/api/v1/destinations'
   end
 
@@ -64,12 +65,12 @@ module Utils
     get "/api/v1/destinations/#{id}"
   end
 
-  def get_favorites
+  def favorites
     get '/api/v1/favorites'
   end
 
   def post_favorite(id)
-    post '/api/v1/favorites', params: {destination_id: id}
+    post '/api/v1/favorites', params: { destination_id: id }
   end
 
   def delete_favorite(id)

@@ -27,8 +27,8 @@ RSpec.describe User, type: :model do
   it 'Returns false if the user already exists' do
     create_consumer_user
     user = User.new(username: 'userfortest',
-                password: '123456',
-                password_confirmation: '123456')
+                    password: '123456',
+                    password_confirmation: '123456')
 
     expect(user.valid?).to be(false)
   end

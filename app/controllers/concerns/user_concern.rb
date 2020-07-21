@@ -1,3 +1,4 @@
+# User concern created to keep current user
 module UserConcern
   extend ActiveSupport::Concern
 
@@ -17,6 +18,7 @@ module UserConcern
 
   def require_login
     return if @current_user
-    render json: {status: :unauthorized, message: "Login required"}
+
+    render json: { status: :unauthorized, message: 'Login required' }
   end
 end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Sessions", type: :request do
+RSpec.describe 'Sessions', type: :request do
   describe '#create' do
     it 'Logs in and returns the user' do
       create_consumer_user
@@ -11,14 +11,14 @@ RSpec.describe "Sessions", type: :request do
 
     it 'Returns unauthorized if user info is incorrect' do
       create_consumer_user
-      post '/api/v1/auth/login', params: {username: 'wronguser', password: '123456'}
+      post '/api/v1/auth/login', params: { username: 'wronguser', password: '123456' }
       expect(response).to have_http_status(:unauthorized)
-  
-      post '/api/v1/auth/login', params: {username: 'userfortest', password: 'wrongpassword'}
+
+      post '/api/v1/auth/login', params: { username: 'userfortest', password: 'wrongpassword' }
       expect(response).to have_http_status(:unauthorized)
     end
   end
-  
+
   describe '#destroy' do
     it 'Logs the user out' do
       create_consumer_user
@@ -27,7 +27,7 @@ RSpec.describe "Sessions", type: :request do
       expect(response).to have_http_status(:success)
     end
   end
-  
+
   describe '#connected' do
     it 'Returns true and the user details if the user is logged in' do
       create_consumer_user
