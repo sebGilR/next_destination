@@ -2,23 +2,25 @@
 module UserConcern
   extend ActiveSupport::Concern
 
-  included do
-    before_action :current_user
+  def require_login
+    current_user
+    return if @current_user
+
+    render json: { status: :unauthorized, message: 'Login required' }
   end
 
-  def current_user
-    if session[:username]
-      @current_user ||= User.find_by(username: session[:username])
-    else
-      @current_user = nil
-    end
+  def require_admin
+    current_user
+    head :unauthorized unless @current_user.admin
   end
 
   private
 
-  def require_login
-    return if @current_user
+  def current_user
+    return @current_user if @current_user
 
-    render json: { status: :unauthorized, message: 'Login required' }
+    @current_user = User.find_by(username: session[:username])
+  rescue ActiveRecord::RecordNotFound
+    head :unauthorized
   end
 end

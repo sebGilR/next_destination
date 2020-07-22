@@ -2,9 +2,8 @@ module Api
   module V1
     # Destinations controller
     class DestinationsController < ApplicationController
-      include UserConcern
       before_action :set_destination, only: %i[show update destroy]
-      before_action :require_login, only: %i[create update destroy]
+      before_action :require_admin, only: %i[create update destroy]
 
       def index
         destinations = Destination.order_by_most_favorites
@@ -17,9 +16,7 @@ module Api
 
       def create
         destination = Destination.new(destination_params)
-        if !@current_user.admin
-          head :unauthorized
-        elsif destination.save
+        if destination.save
           render json: { destination: destination }
         else
           render json: { destination: destination.errors }
@@ -27,9 +24,7 @@ module Api
       end
 
       def update
-        if !@current_user.admin
-          head :unauthorized
-        elsif @destination.update(destination_params)
+        if @destination.update(destination_params)
           head :ok
         else
           render json: { destination: @destination.errors }
@@ -37,12 +32,8 @@ module Api
       end
 
       def destroy
-        if !@current_user.admin
-          head :unauthorized
-        else
-          @destination.destroy
-          head :ok
-        end
+        @destination.destroy
+        head :ok
       end
 
       private

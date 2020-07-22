@@ -2,7 +2,6 @@ module Api
   module V1
     # Favorites controller
     class FavoritesController < ApplicationController
-      include UserConcern
       before_action :set_favorite, only: :destroy
       before_action :require_login
 

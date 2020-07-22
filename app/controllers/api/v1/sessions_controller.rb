@@ -2,7 +2,7 @@ module Api
   module V1
     # Sessions controller
     class SessionsController < ApplicationController
-      include UserConcern
+      before_action :current_user, only: %i[connected destroy]
 
       def create
         user = User.find_by(username: params[:username])
